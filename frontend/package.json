@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.2",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -16,7 +17,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sass:compile": "sass src/sass/main.scss build/stylesheets/styles.css"
+    "sass:compile": "sass src/sass/main.scss public/css/styles.css --style compressed"
   },
   "eslintConfig": {
     "extends": [
@@ -35,5 +36,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "json-server": "^0.17.3"
   }
 }
