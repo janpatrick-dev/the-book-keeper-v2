@@ -1,7 +1,8 @@
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-  const user = null;
+  const user = useSelector(state => state.user);
 
   const handleLogout = () => {
 
@@ -21,7 +22,7 @@ const Navbar = () => {
           <div>
             <p className="nav__greetings">
               Hi, <span>{ user.name }</span>!
-              </p>
+            </p>
             <Link to='#' onClick={handleLogout}><li className='nav__item btn-logout'>Log out</li></Link>
           </div>
         )}

@@ -1,15 +1,33 @@
-import { useEffect, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import useField from '../hooks/useField';
+import loginService from '../services/login';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../redux/reducers/userReducer';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  useEffect(() => {
-
-  }, [])
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector(state => state.user);
+  const identifier = useField('text');
+  const password = useField('password');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const user = await loginService.login({ 
+        identifier: identifier.value, 
+        password: password.value 
+      });
+      dispatch(setUser(user));
+      navigate('/books');
+    } catch (error) {
+      console.log(error);
+      // TODO: Handle error later on failed login..
+    }
+  }
+
+  if (user) {
+    return <Navigate to='/books' />
   }
 
   return (
@@ -18,24 +36,20 @@ const Login = () => {
         <h1>Log In</h1>
         <div className='divider'></div>
         <div className='form__row'>
-          <label htmlFor='email' className='form__label'>Email</label>
+          <label htmlFor='identifier' className='form__label'>Email / Username</label>
           <input 
-            type='text'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            name='email'
-            id='email'
+            {...identifier}
+            name='identifier'
+            id='identifier'
             className='form__input-text'
-            placeholder='Email'
+            placeholder='Email / Username'
             required
           />
         </div>
         <div className='form__row'>
           <label htmlFor='password' className='form__label'>Password</label>
           <input 
-            type='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            {...password}
             name='password'
             id='password'
             className='form__input-text'

@@ -1,6 +1,5 @@
 import { combineReducers, configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import {
-  persistStore,
   persistReducer,
   FLUSH,
   REHYDRATE,
@@ -12,10 +11,12 @@ import {
 import storage from 'redux-persist/lib/storage';
 import bookReducer from './reducers/bookReducer';
 import filterReducer from './reducers/filterReducer';
+import userReducer from './reducers/userReducer';
 
 const reducers = combineReducers({
   books: bookReducer,
-  filter: filterReducer
+  filter: filterReducer,
+  user: userReducer
 });
 
 const persistConfig = {

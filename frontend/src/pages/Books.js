@@ -10,10 +10,7 @@ import booksSelector from "../redux/selectors/booksSelector";
 const Books = () => {
   const dispatch = useDispatch();
   const books = useSelector(booksSelector);
-
-  const user = {
-    _id: 1
-  };
+  const user = useSelector(state => state.user);
 
   const handleFilter = (e) => {
     dispatch(setFilter(e.target.value));
