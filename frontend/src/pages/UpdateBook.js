@@ -16,8 +16,6 @@ const UpdateBook = () => {
   const book = useSelector(state => state.books.find((b) => b.id === id));
   const user = { id: 1 };
 
-  // console.log(book.hasRead);
-
   const title = useField('text', book.title);
   const author = useField('text', book.author);
   const imgUrl = useField('text', book.imgUrl);
