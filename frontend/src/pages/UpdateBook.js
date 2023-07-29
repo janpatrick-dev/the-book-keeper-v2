@@ -13,7 +13,8 @@ const UpdateBook = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const book = useSelector(state => state.books.find((b) => b.id === Number(id)));
+  const books = useSelector(state => state);
+  const book = useSelector(state => state.books.find((b) => b.id === id));
   const user = { id: 1 };
 
   // console.log(book.hasRead);
@@ -24,7 +25,11 @@ const UpdateBook = () => {
   const year = useField('number', book.yearPublished);
   const hasRead = useCheckbox(book.hasRead);
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    console.log(books);
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(updateBook({
       id: book.id,
