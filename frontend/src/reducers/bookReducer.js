@@ -10,11 +10,14 @@ const bookSlice = createSlice({
     },
     appendBook(state, action) {
       state.push(action.payload);
+    },
+    removeBook(state, action) {
+      return state.filter((book) => book.id !== action.payload);
     }
   }
 });
 
-export const { setBooks, appendBook } = bookSlice.actions;
+export const { setBooks, appendBook, removeBook } = bookSlice.actions;
 
 export const initializeBooks = () => {
   return async (dispatch) => {
@@ -29,5 +32,12 @@ export const createBook = (newBook) => {
     dispatch(appendBook(book));
   }
 };
+
+export const deleteBook = (id) => {
+  return async (dispatch) => {
+    await bookService.remove(id);
+    dispatch(removeBook(id));
+  }
+}
 
 export default bookSlice.reducer;

@@ -1,13 +1,22 @@
+import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import { deleteBook } from '../../reducers/bookReducer';
 
 const Book = ({ book }) => {
+  const dispatch = useDispatch();
+
   const { 
-    id, hasRead, imgUrl, title, 
-    author, yearPublished, createdAt 
+    id, 
+    hasRead, 
+    imgUrl, 
+    title, 
+    author, 
+    yearPublished, 
+    createdAt 
   } = book;
 
   const handleUpdateReadStatus = async (e) => {
@@ -15,7 +24,7 @@ const Book = ({ book }) => {
   }
 
   const handleDelete = async (e) => {
-    // await deleteBook(book);
+    dispatch(deleteBook(id));
   }
 
   return (

@@ -1,15 +1,6 @@
 {
   "books": [
     {
-      "id": 1,
-      "hasRead": false,
-      "imgUrl": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1170803558l/72193.jpg",
-      "title": "Harry Potter and the Philosopher's Stone",
-      "author": "J.K. Rowling",
-      "yearPublished": 1995,
-      "createdAt": "2023-05-17T03:49:09.576+00:00"
-    },
-    {
       "id": 2,
       "hasRead": false,
       "imgUrl": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1655988385i/40121378.jpg",
