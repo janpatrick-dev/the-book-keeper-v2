@@ -4,7 +4,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import { deleteBook } from '../../reducers/bookReducer';
+import { updateBook, deleteBook } from '../../reducers/bookReducer';
 
 const Book = ({ book }) => {
   const dispatch = useDispatch();
@@ -19,11 +19,11 @@ const Book = ({ book }) => {
     createdAt 
   } = book;
 
-  const handleUpdateReadStatus = async (e) => {
-    // await updateBook(book, { hasRead: !book.hasRead })
+  const handleUpdateReadStatus = (e) => {
+    dispatch(updateBook({ ...book, hasRead: !book.hasRead }));
   }
 
-  const handleDelete = async (e) => {
+  const handleDelete = (e) => {
     dispatch(deleteBook(id));
   }
 

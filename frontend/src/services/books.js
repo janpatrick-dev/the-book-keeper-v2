@@ -12,8 +12,17 @@ const create = async (newBook) => {
   return response.data;
 };
 
+const update = async (updatedBook) => {
+  const response = await axios.put(
+    `${baseUrl}/${updatedBook.id}`, 
+    updatedBook,
+    { new: true }
+  );
+  return response.data;
+}
+
 const remove = async (id) => {
   await axios.delete(`${baseUrl}/${id}`);
 }
 
-export default { getAll, create, remove };
+export default { getAll, create, update, remove };
