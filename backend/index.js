@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const UserRoute = require('./routes/UserRoute');
 const BookRoute = require('./routes/BookRoute');
 
 mongoose.connect(config.MONGODB_URL)
@@ -15,6 +16,7 @@ mongoose.connect(config.MONGODB_URL)
 
 app.use(cors());
 app.use(express.json());
+app.use('/api/users', UserRoute);
 app.use('/api/books', BookRoute);
 
 app.listen(config.PORT, () => {

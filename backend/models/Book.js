@@ -18,6 +18,10 @@ const bookSchema = new mongoose.Schema({
   hasRead: {
     type: Boolean,
     default: false
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 }, { timestamps: true });
 
