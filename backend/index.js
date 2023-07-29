@@ -1,11 +1,22 @@
+const config = require('./utils/config');
+const mongoose = require('mongoose');
 const express = require('express');
-
+const cors = require('cors');
 const app = express();
+const BookRoute = require('./routes/BookRoute');
 
-app.get('/', (request, response) => {
-  response.send('<h1>Hello world!</h1>');
-});
+mongoose.connect(config.MONGODB_URL)
+  .then(() => {
+    console.log('connected to MongoDB');
+  })
+  .catch((error) => {
+    console.log('error connecting to MongoDB', error.message);
+  });
 
-app.listen(4000, () => {
-  console.log('listening on port 4000');
+app.use(cors());
+app.use(express.json());
+app.use('/api/books', BookRoute);
+
+app.listen(config.PORT, () => {
+  console.log('listening on port', config.PORT);
 });
