@@ -4,7 +4,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import { updateBook, deleteBook } from '../../reducers/bookReducer';
+import { updateBook, deleteBook } from '../../redux/reducers/bookReducer';
 
 const Book = ({ book }) => {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ const Book = ({ book }) => {
             onClick={handleUpdateReadStatus}
             titleAccess={`Mark as ${hasRead ? 'unread' : 'read'}`} 
           />
-          <Link to={`/update-book/${id}`}>
+          <Link to={`/books/edit/${id}`}>
             <EditIcon
               className='books__item-edit-icon'
               titleAccess='Edit this book' 

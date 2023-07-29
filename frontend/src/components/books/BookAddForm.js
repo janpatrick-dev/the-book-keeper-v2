@@ -6,7 +6,7 @@ import FormRowCheckbox from "../form/FormRowCheckbox";
 import useField from '../../hooks/useField';
 
 import { useDispatch } from "react-redux";
-import { createBook } from "../../reducers/bookReducer";
+import { createBook } from "../../redux/reducers/bookReducer";
 
 const BookAddForm = () => {
   const title = useField('text');
@@ -28,7 +28,8 @@ const BookAddForm = () => {
       author: author.value, 
       imgUrl: imgUrl.value, 
       hasRead: hasRead.value,
-      yearPublished: year.value
+      yearPublished: year.value,
+      createdAt: new Date() // TODO: remove after creating database
     }));
     resetForm();
   }

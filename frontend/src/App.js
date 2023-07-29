@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Footer from "./components/partials/Footer";
 import Books from "./pages/Books";
+import UpdateBook from "./pages/UpdateBook";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/books' element={<Books />} />
+            <Route path='/books/edit/:id' element={<UpdateBook />} />
           </Routes>
         </main>
       </div>
