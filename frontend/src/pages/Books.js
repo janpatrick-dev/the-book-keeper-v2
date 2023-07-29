@@ -4,16 +4,33 @@ import Book from "../components/books/Book";
 import BookAddForm from "../components/books/BookAddForm";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeBooks } from "../reducers/bookReducer";
+import { setFilter } from "../reducers/filterReducer";
 
 const Books = () => {
   const dispatch = useDispatch();
-  const books = useSelector(state => state.books);
+  const books = useSelector(state => {
+    switch (state.filter) {
+      case 'date-created':
+        return [...state.books].sort((a, b) => (a.createdAt).localeCompare(b.createdAt));
+      case 'title':
+        return [...state.books].sort((a, b) => (a.title).localeCompare(b.title));
+      case 'author':
+        return [...state.books].sort((a, b) => (a.author).localeCompare(b.author));
+      case 'year-published':
+        return [...state.books].sort((a, b) => a.yearPublished - b.yearPublished);
+      case 'read-status':
+        return [...state.books].sort((a, b) => a.hasRead - b.hasRead);
+      default:
+        return state.books;
+    }
+  });
+  
   const user = {
     _id: 1
   };
 
   const handleFilter = (e) => {
-
+    dispatch(setFilter(e.target.value));
   };
 
   const handleFloatingAddBookClick = () => {
@@ -26,6 +43,10 @@ const Books = () => {
 
   if (!user) {
     return <Navigate to="/login" />;
+  }
+
+  if (!books) {
+    return null;
   }
 
   return (

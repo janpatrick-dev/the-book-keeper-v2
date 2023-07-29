@@ -17,6 +17,24 @@
       "author": "John Doe",
       "yearPublished": 1999,
       "createdAt": "2023-05-17T03:49:09.576+00:00"
+    },
+    {
+      "id": 4,
+      "hasRead": false,
+      "imgUrl": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1442726934i/4865.jpg",
+      "title": "How to Win Friends and Influence People",
+      "author": "Dale Carnegie",
+      "yearPublished": 1936,
+      "createdAt": "2023-05-19T17:29:03.679+00:00"
+    },
+    {
+      "id": 5,
+      "hasRead": false,
+      "imgUrl": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1545854312i/12609433.jpg",
+      "title": "The Power of Habit",
+      "author": "Charles Duhigg",
+      "yearPublished": 2012,
+      "createdAt": "2023-05-25T15:51:17.312+00:00"
     }
   ]
 }
