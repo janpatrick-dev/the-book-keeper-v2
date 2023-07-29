@@ -1,0 +1,31 @@
+{
+  "books": [
+    { 
+      "id": 1, 
+      "hasRead": false, 
+      "imgUrl": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1170803558l/72193.jpg", 
+      "title": "Harry Potter and the Philosopher's Stone", 
+      "author": "J.K. Rowling", 
+      "yearPublished": 1995, 
+      "createdAt": "2023-05-17T03:49:09.576+00:00"
+    },
+    { 
+      "id": 2, 
+      "hasRead": false, 
+      "imgUrl": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1655988385i/40121378.jpg", 
+      "title": "Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones", 
+      "author": "James Clear", 
+      "yearPublished": 2018, 
+      "createdAt": "2023-05-19T17:02:42.218+00:00"
+    },
+    { 
+      "id": 3, 
+      "hasRead": false, 
+      "imgUrl": "https://kbimages1-a.akamaihd.net/f68de379-e763-441c-8159-a949ea575237/1200/1200/False/the-subtle-art-of-not-giving-a-f-ck.jpg", 
+      "title": "The Subtle Art of Not Giving a F*ck", 
+      "author": "John Doe", 
+      "yearPublished": 1999, 
+      "createdAt": "2023-05-17T03:49:09.576+00:00"
+    }
+  ]
+}
