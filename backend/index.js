@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const UserRoute = require('./routes/UserRoute');
-const LoginRoute = require('./routes/LoginRoute');
-const BookRoute = require('./routes/BookRoute');
+
+const usersRouter = require('./routes/usersRouter');
+const loginRouter = require('./routes/loginRouter');
+const booksRouter = require('./routes/booksRouter');
 
 mongoose.connect(config.MONGODB_URL)
   .then(() => {
@@ -17,9 +18,9 @@ mongoose.connect(config.MONGODB_URL)
 
 app.use(cors());
 app.use(express.json());
-app.use('/api/users', UserRoute);
-app.use('/api/login', LoginRoute);
-app.use('/api/books', BookRoute);
+app.use('/api/users', usersRouter);
+app.use('/api/login', loginRouter);
+app.use('/api/books', booksRouter);
 
 app.listen(config.PORT, () => {
   console.log('listening on port', config.PORT);
