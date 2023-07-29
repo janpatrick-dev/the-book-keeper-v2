@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import Book from "../components/Book";
-import bookService from '../services/books';
+import Book from "../components/books/Book";
+import BookAddForm from "../components/books/BookAddForm";
+import { useDispatch, useSelector } from "react-redux";
+import { initializeBooks } from "../reducers/bookReducer";
 
 const Books = () => {
-  const [books, setBooks] = useState([]);
+  const dispatch = useDispatch();
+  const books = useSelector(state => state.books);
   const user = {
     _id: 1
   };
@@ -18,10 +21,8 @@ const Books = () => {
   }
 
   useEffect(() => {
-    bookService.getAll().then((books) => {
-      setBooks(books);
-    });
-  }, []);
+    dispatch(initializeBooks());
+  }, [dispatch]);
 
   if (!user) {
     return <Navigate to="/login" />;
@@ -42,12 +43,12 @@ const Books = () => {
         </div>
         <div className="books__list">
           {books.map((book) => (
-            <Book key={book._id} book={book} />
+            <Book key={book.id} book={book} />
           ))}
         </div>
       </div>
       <div className="books__right">
-        
+        <BookAddForm />
       </div>
       <div className="books__floating">
         <button
