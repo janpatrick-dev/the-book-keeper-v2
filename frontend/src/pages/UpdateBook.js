@@ -8,19 +8,24 @@ import useField from "../hooks/useField";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBook } from "../redux/reducers/bookReducer";
 import useCheckbox from "../hooks/useCheckbox";
+import tokenService from "../services/token";
 
 const UpdateBook = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const book = useSelector(state => state.books.find((b) => b.id === id));
-  const user = { id: 1 };
+  const user = useSelector(state => state.user);
 
   const title = useField('text', book.title);
   const author = useField('text', book.author);
   const imgUrl = useField('text', book.imgUrl);
   const year = useField('number', book.yearPublished);
   const hasRead = useCheckbox(book.hasRead);
+
+  useEffect(() => {
+    tokenService.set(user.token);
+  }, [user.token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

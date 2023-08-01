@@ -29,29 +29,45 @@ export const { setBooks, appendBook, reviseBook, removeBook } = bookSlice.action
 
 export const initializeBooks = () => {
   return async (dispatch) => {
-    const books = await bookService.getAll();
-    dispatch(setBooks(books));
+    try {
+      const books = await bookService.getAll();
+      dispatch(setBooks(books));
+    } catch (err) {
+      dispatch({ type: 'USER_LOGOUT' });
+    }
   };
 };
 
 export const createBook = (newBook) => {
   return async (dispatch) => {
-    const book = await bookService.create(newBook);
-    dispatch(appendBook(book));
+    try {
+      const book = await bookService.create(newBook);
+      dispatch(appendBook(book));
+    } catch (err) {
+      dispatch({ type: 'USER_LOGOUT' });
+    }
   }
 };
 
 export const updateBook = (updatedBook) => {
   return async (dispatch) => {
-    const bookToUpdate = await bookService.update(updatedBook);
-    dispatch(reviseBook(bookToUpdate));
+    try {
+      const bookToUpdate = await bookService.update(updatedBook);
+      dispatch(reviseBook(bookToUpdate));
+    } catch (err) {
+      dispatch({ type: 'USER_LOGOUT' });
+    }
   }
 }
 
 export const deleteBook = (id) => {
   return async (dispatch) => {
-    await bookService.remove(id);
-    dispatch(removeBook(id));
+    try {
+      await bookService.remove(id);
+      dispatch(removeBook(id));
+    } catch (err) {
+      dispatch({ type: 'USER_LOGOUT' });
+    }
   }
 }
 

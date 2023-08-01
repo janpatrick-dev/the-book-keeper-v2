@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { initializeBooks } from "../redux/reducers/bookReducer";
 import { setFilter } from "../redux/reducers/filterReducer";
 import booksSelector from "../redux/selectors/booksSelector";
+import tokenService from "../services/token";
 
 const Books = () => {
   const dispatch = useDispatch();
@@ -21,11 +22,14 @@ const Books = () => {
   }
 
   useEffect(() => {
-    dispatch(initializeBooks());
-  }, [dispatch]);
+    if (user) {
+      tokenService.set(user.token);
+      dispatch(initializeBooks());
+    }
+  }, [user, dispatch]);
 
   if (!user) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" />
   }
 
   if (!books) {
