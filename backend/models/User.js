@@ -4,14 +4,14 @@ const validator = require('validator');
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    minLength: 6,
+    minLength: 3,
     maxLength: 32,
     unique: true,
     required: true,
   },
   email: {
     type: String,
-    minLength: 3,
+    minLength: 6,
     unique: true,
     validate: [validator.isEmail, 'Invalid email format!']
   },

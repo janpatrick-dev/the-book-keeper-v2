@@ -7,4 +7,6 @@ if (process.env.NODE_ENV === 'test') {
 
 usersRouter.post('/', controller.create);
 
+usersRouter.delete('/:id', controller.remove);
+
 module.exports = usersRouter;

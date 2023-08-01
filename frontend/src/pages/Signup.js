@@ -1,9 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import useField from '../hooks/useField';
+import { createUser } from '../redux/reducers/userReducer';
+import FormRowInputText from '../components/form/FormRowInputText';
+import FormButton from '../components/form/FormButton';
 
 const Signup = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector(state => state.user);
+  const name = useField('text');
+  const username = useField('text');
+  const email = useField('email');
+  const password = useField('password');
 
   useEffect(() => {
 
@@ -11,6 +21,13 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await dispatch(createUser({
+      name: name.value,
+      username: username.value,
+      email: email.value,
+      password: password.value
+    }));
+    navigate('/books');
   }
 
   return (
@@ -18,48 +35,39 @@ const Signup = () => {
       <form onSubmit={handleSubmit} className='form'>
         <h1>Sign Up</h1>
         <div className='divider'></div>
-        <div className='form__row'>
-          <label htmlFor='name' className='form__label'>Name</label>
-          <input 
-            type='text'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            name='name'
-            id='name'
-            className='form__input-text'
-            placeholder='Name'
-            required
-          />
-        </div>
-        <div className='form__row'>
-          <label htmlFor='email' className='form__label'>Email</label>
-          <input 
-            type='text'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            name='email'
-            id='email'
-            className='form__input-text'
-            placeholder='Email'
-            required
-          />
-        </div>
-        <div className='form__row'>
-          <label htmlFor='password' className='form__label'>Password</label>
-          <input 
-            type='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            name='password'
-            id='password'
-            className='form__input-text'
-            placeholder='Password'
-            required
-          />
-        </div>
-        <button className='form__btn btn-login btn-signup'>
-          Sign up
-        </button>
+        <FormRowInputText
+          {...name}
+          name='name'
+          label='Name'
+          required={true}
+          placeholder='Name'
+        />
+        <FormRowInputText
+          {...username}
+          name='username'
+          label='Username'
+          required={true}
+          placeholder='Username'
+        />
+        <FormRowInputText
+          {...email}
+          name='email'
+          label='Email'
+          required={true}
+          placeholder='Email'
+        />
+        <FormRowInputText
+          {...password}
+          name='password'
+          label='Password'
+          required={true}
+          placeholder='Password'
+        />
+        <FormButton
+          disabled={false}
+          label='Sign up'
+          className='btn-signup'
+        />
         {/* <FormButton disabled={isLoading} label='Sign up' className='btn-signup' /> */}
         {/* <FormError error={error} />
         <LoadingProgress isLoading={isLoading} /> */}
