@@ -17,15 +17,17 @@ const UpdateBook = () => {
   const book = useSelector(state => state.books.find((b) => b.id === id));
   const user = useSelector(state => state.user);
 
-  const title = useField('text', book.title);
-  const author = useField('text', book.author);
-  const imgUrl = useField('text', book.imgUrl);
-  const year = useField('number', book.yearPublished);
-  const hasRead = useCheckbox(book.hasRead);
+  const title = useField('text', book && book.title);
+  const author = useField('text', book && book.author);
+  const imgUrl = useField('text', book && book.imgUrl);
+  const year = useField('number', book && book.yearPublished);
+  const hasRead = useCheckbox(book && book.hasRead);
 
   useEffect(() => {
-    tokenService.set(user.token);
-  }, [user.token]);
+    if (user) {
+      tokenService.set(user.token);
+    }
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
