@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateBook } from "../redux/reducers/bookReducer";
 import useCheckbox from "../hooks/useCheckbox";
 import tokenService from "../services/token";
+import { setAlert } from "../redux/reducers/alertReducer";
 
 const UpdateBook = () => {
   const { id } = useParams();
@@ -22,6 +23,10 @@ const UpdateBook = () => {
   const imgUrl = useField('text', book && book.imgUrl);
   const year = useField('number', book && book.yearPublished);
   const hasRead = useCheckbox(book && book.hasRead);
+
+  useEffect(() => {
+    dispatch(setAlert(null));
+  }, [dispatch])
 
   useEffect(() => {
     if (user) {

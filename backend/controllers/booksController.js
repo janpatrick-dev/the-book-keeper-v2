@@ -10,14 +10,27 @@ const getUserBooks = async (request, response) => {
   const user = request.user;
   const books = await Book
     .find({ user: user.id })
-    .populate('user', { username: 1, name: 1 });
+    .populate('user', { email: 1, name: 1 });
   response.status(200).json(books);
 };
+
+const getUserBook = async (request, response) => {
+  const id = request.params.id;
+  const user = request.user;
+  const books = await Book
+    .find({ user: user.id })
+    .populate('user', { email: 1, name: 1 });
+  const book = books.find((b) => b.id === id);
+  response.status(200).json(book);
+}
 
 const create = async (request, response) => {
   const user = request.user;
   const body = request.body;
-  const newBook = await Book.create({ ...body, user: user.id });
+  const newBook = await Book.create({ 
+    ...body,
+    user: user.id 
+  });
 
   const author = await User.findById(user.id);
   author.books = [...author.books, newBook];
@@ -44,4 +57,4 @@ const remove = async (request, response) => {
   response.status(204).end();
 };
 
-module.exports = { getAll, getUserBooks, create, update, remove };
+module.exports = { getAll, getUserBooks, getUserBook, create, update, remove };

@@ -158,7 +158,7 @@ html {
 }
 
 .error {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: $color-light-red;
 }
@@ -203,6 +203,19 @@ html {
     & input[type='checkbox'] {
       margin-left: 1rem;
     }
+  }
+}
+
+.alert {
+  font-size: 1.4rem;
+  color: #333;
+
+  &__title {
+    font-size: 1.4rem;
+  }
+
+  &__description {
+    font-size: 1.2rem;
   }
 }
 

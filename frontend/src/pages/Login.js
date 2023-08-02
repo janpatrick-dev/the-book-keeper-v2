@@ -3,26 +3,38 @@ import useField from '../hooks/useField';
 import loginService from '../services/login';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../redux/reducers/userReducer';
+import { setAlert } from '../redux/reducers/alertReducer';
+import { useState } from 'react';
+import FormRowInputText from '../components/form/FormRowInputText';
+import FormButton from '../components/form/FormButton';
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
-  const identifier = useField('text');
+  const email = useField('text');
   const password = useField('password');
+
+  const [isLoading, setIsLoading] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const user = await loginService.login({ 
-        identifier: identifier.value, 
+        email: email.value.toLowerCase(), 
         password: password.value 
       });
+      setIsLoading(false);
       dispatch(setUser(user));
       navigate('/books');
     } catch (error) {
-      console.log(error);
-      // TODO: Handle error later on failed login..
+      let message = error.response.data.error;
+      if (!message) {
+        message = error.message;
+      }
+      setIsLoading(false);
+      dispatch(setAlert(message, false));
     }
   }
 
@@ -35,31 +47,25 @@ const Login = () => {
       <form onSubmit={handleSubmit} className='form'>
         <h1>Log In</h1>
         <div className='divider'></div>
-        <div className='form__row'>
-          <label htmlFor='identifier' className='form__label'>Email / Username</label>
-          <input 
-            {...identifier}
-            name='identifier'
-            id='identifier'
-            className='form__input-text'
-            placeholder='Email / Username'
-            required
-          />
-        </div>
-        <div className='form__row'>
-          <label htmlFor='password' className='form__label'>Password</label>
-          <input 
-            {...password}
-            name='password'
-            id='password'
-            className='form__input-text'
-            placeholder='Password'
-            required
-          />
-        </div>
-        <button className={`form__btn btn-login`}>
-          Log in
-        </button>
+        <FormRowInputText
+          {...email}
+          name='email'
+          label='Email'
+          placeholder='Email'
+          required={true}
+        />
+        <FormRowInputText
+          {...password}
+          name='password'
+          label='Password'
+          placeholder='Password'
+          required={true}
+        />
+        <FormButton
+          disabled={isLoading}
+          label='Log in'
+          className='btn-login'
+        />
       </form>
     </div>
   );

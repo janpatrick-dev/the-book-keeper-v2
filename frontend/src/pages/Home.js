@@ -1,6 +1,13 @@
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, Navigate } from "react-router-dom";
 
 const Home = () => {
+  const user = useSelector(state => state.user);
+
+  if (user) {
+    return <Navigate to='/books' />;
+  }
+
   return ( 
     <div className='home'>
       <h1 className="home__title">Welcome to The Book Keeper!</h1>

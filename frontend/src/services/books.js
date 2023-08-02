@@ -3,8 +3,17 @@ import { token } from './token';
 
 const baseUrl = 'http://localhost:4000/api/books'
 
-const getAll = async () => {
+const getUserBooks = async () => {
   const response = await axios.get(baseUrl, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+  return response.data;
+};
+
+const getUserBook = async (id) => {
+  const response = await axios.get(`${baseUrl}/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -43,4 +52,4 @@ const remove = async (id) => {
   });
 }
 
-export default { getAll, create, update, remove };
+export default { getUserBooks, getUserBook, create, update, remove };

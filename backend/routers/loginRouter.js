@@ -2,18 +2,14 @@ const validator = require('validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const loginRouter = require('express').Router();
+const config = require('../utils/config');
 const User = require('../models/User');
 
 loginRouter.post('/', async (request, response) => {
-  const { identifier, password } = request.body;
-  let user;
+  const { email, password } = request.body;
 
   try {
-    if (validator.isEmail(identifier)) {
-      user = await User.findOne({ email: identifier });
-    } else {
-      user = await User.findOne({ username: identifier });
-    }
+    const user = await User.findOne({ email });
 
     const passwordCorrect = user
       ? await bcrypt.compare(password, user.password)
@@ -25,17 +21,17 @@ loginRouter.post('/', async (request, response) => {
 
     const userForToken = {
       id: user._id,
-      username: user.username,
+      email: user.email,
       name: user.name
     };
 
     const token = jwt.sign(
       userForToken, 
-      process.env.PROD_TOKEN_SECRET,
-      { expiresIn: 60 }  
+      config.TOKEN_SECRET,
+      { expiresIn: config.TOKEN_DURATION }  
     );
 
-    response.status(200).json({ token: token, username: user.name, name: user.name });
+    response.status(200).json({ token: token, email: user.email, name: user.name });
   } catch (error) {
     response.status(500).json({ error: error.message });
   }

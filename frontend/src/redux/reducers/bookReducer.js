@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { setAlert } from "./alertReducer";
 import bookService from "../../services/books";
 
 const bookSlice = createSlice({
@@ -27,46 +28,71 @@ const bookSlice = createSlice({
 
 export const { setBooks, appendBook, reviseBook, removeBook } = bookSlice.actions;
 
+const setError = (error) => {
+  return (dispatch) => {
+    let message = error.message;
+    if (error.response.status === 401) {
+      dispatch({ type: 'USER_LOGOUT' });
+      message = 'Session Expired. Please log in again.';
+    }
+    dispatch(setAlert(message, false));
+  }
+};
+
+const clearAlert = () => {
+  return (dispatch) => {
+    dispatch(setAlert(null));
+  }
+}
+
 export const initializeBooks = () => {
   return async (dispatch) => {
+    dispatch(clearAlert());
     try {
-      const books = await bookService.getAll();
+      const books = await bookService.getUserBooks();
       dispatch(setBooks(books));
     } catch (err) {
-      dispatch({ type: 'USER_LOGOUT' });
+      dispatch(setError(err));
     }
   };
 };
 
 export const createBook = (newBook) => {
   return async (dispatch) => {
+    dispatch(clearAlert());
     try {
       const book = await bookService.create(newBook);
       dispatch(appendBook(book));
+      dispatch(setAlert(`Successfully added '${book.title}' to your library.`));
     } catch (err) {
-      dispatch({ type: 'USER_LOGOUT' });
+      dispatch(setError(err));
     }
   }
 };
 
 export const updateBook = (updatedBook) => {
   return async (dispatch) => {
+    dispatch(clearAlert());
     try {
       const bookToUpdate = await bookService.update(updatedBook);
       dispatch(reviseBook(bookToUpdate));
+      dispatch(setAlert(`Successfully updated '${bookToUpdate.title}'.`));
     } catch (err) {
-      dispatch({ type: 'USER_LOGOUT' });
+      dispatch(setError(err));
     }
   }
 }
 
 export const deleteBook = (id) => {
   return async (dispatch) => {
+    dispatch(clearAlert());
     try {
+      const bookToDelete = await bookService.getUserBook(id);
       await bookService.remove(id);
       dispatch(removeBook(id));
+      dispatch(setAlert(`Removed '${bookToDelete.title}' book from your library.`, false));
     } catch (err) {
-      dispatch({ type: 'USER_LOGOUT' });
+      dispatch(setError(err));
     }
   }
 }

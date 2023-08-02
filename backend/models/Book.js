@@ -13,7 +13,7 @@ const bookSchema = new mongoose.Schema({
     type: String
   },
   yearPublished: {
-    type: Number
+    type: String
   },
   hasRead: {
     type: Boolean,

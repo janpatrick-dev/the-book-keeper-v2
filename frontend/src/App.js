@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Footer from "./components/partials/Footer";
 import Books from "./pages/Books";
 import UpdateBook from "./pages/UpdateBook";
+import Alert from "./components/Alert";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <div>
         <Navbar />
         <main id="main">
+          <Alert />
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />

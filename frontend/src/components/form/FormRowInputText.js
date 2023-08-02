@@ -1,5 +1,14 @@
 const FormRowInputText = (props) => {
-  const { type, name, label, value, onChange, required, placeholder } = props;
+  const { 
+    type, 
+    name, 
+    label, 
+    value, 
+    onChange, 
+    required, 
+    placeholder,
+    error 
+  } = props;
 
   return (
     <div className='form__row'>
@@ -13,7 +22,9 @@ const FormRowInputText = (props) => {
         className='form__input-text'
         placeholder={placeholder}
         required={required || false}
+        style={error && { border: '1px solid #FF0000' }}
       />
+      {error && <div className="error">{ error }</div>}
     </div>
   )
 }

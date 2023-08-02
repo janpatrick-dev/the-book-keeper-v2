@@ -13,12 +13,14 @@ import storage from 'redux-persist/lib/storage';
 import bookReducer from './reducers/bookReducer';
 import filterReducer from './reducers/filterReducer';
 import userReducer from './reducers/userReducer';
+import alertReducer from './reducers/alertReducer';
 
 
 const appReducer = combineReducers({
   books: bookReducer,
   filter: filterReducer,
-  user: userReducer
+  user: userReducer,
+  alert: alertReducer
 });
 
 const rootReducer = (state, action) => {

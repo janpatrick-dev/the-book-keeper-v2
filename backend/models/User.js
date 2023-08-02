@@ -2,26 +2,21 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    minLength: 3,
-    maxLength: 32,
-    unique: true,
-    required: true,
-  },
   email: {
     type: String,
-    minLength: 6,
-    unique: true,
-    validate: [validator.isEmail, 'Invalid email format!']
+    minLength: [6, 'Email must have 6 characters or more.'],
+    unique: [true, 'Email already exists.'],
+    required: [true, 'Email is required.'],
+    validate: [validator.isEmail, 'Invalid email format.']
   },
   name: {
     type: String
   },
   password: {
     type: String,
-    minLength: 6,
-    maxLength: 255
+    minLength: [6, 'Password must have 6 characters or more.'],
+    maxLength: 255,
+    required: [true, 'Password is required.']
   },
   books: [
     {
@@ -37,7 +32,6 @@ userSchema.set('toJSON', {
     delete returnedObject._id;
     delete returnedObject.__v;
     delete returnedObject.password;
-    delete returnedObject.email;
   }
 });
 

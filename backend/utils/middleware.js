@@ -24,8 +24,23 @@ const errorHandler = (error, request, response, next) => {
 
   if (error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError') {
     return response.status(401).json({ error: error.message });
-  } else if (error.message.includes('minimum allowed length')) {
-    return response.status(400).json({ error: error.message });
+  } else if (error.message.includes('User validation failed')) {
+    const errors = {};
+    if (error.message.includes('email')) {
+      errors.email = error.errors.email.properties.message
+    }
+    if (error.message.includes('password')) {
+      errors.password = error.errors.password.properties.message;
+    }
+    return response.status(400).json({ error: errors });
+  } else if (error.code === 11000) {
+    const errors = {};
+    
+    if ("email" in error.keyValue) {
+      errors.email = 'Email already exists.';
+    }
+
+    return response.status(400).json({ error: errors });
   }
 
   next(error);
