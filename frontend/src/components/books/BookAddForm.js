@@ -8,13 +8,14 @@ import useField from '../../hooks/useField';
 import { useDispatch } from "react-redux";
 import { createBook } from "../../redux/reducers/bookReducer";
 import LoadingProgress from "../LoadingProgress";
+import useCheckbox from "../../hooks/useCheckbox";
 
 const BookAddForm = ({ onSubmit=null }) => {
   const title = useField('text');
   const author = useField('text');
   const imgUrl = useField('text');
   const year = useField('number', 2023);
-  const hasRead = useField('checkbox', false);
+  const hasRead = useCheckbox(false);
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -31,8 +32,7 @@ const BookAddForm = ({ onSubmit=null }) => {
       author: author.value, 
       imgUrl: imgUrl.value, 
       hasRead: hasRead.value,
-      yearPublished: year.value,
-      createdAt: new Date() // TODO: remove after creating database
+      yearPublished: year.value
     }));
     setLoading(false);
     resetForm();
