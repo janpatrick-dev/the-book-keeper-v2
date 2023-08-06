@@ -2,12 +2,13 @@ const Book = require("../models/Book");
 const User = require("../models/User");
 
 const getAll = async (request, response) => {
-  const books = await Book.find({});
+  const books = await Book.find({}).populate('user', { email: 1, name: 1 });
   response.status(200).json(books);
 }
 
 const getUserBooks = async (request, response) => {
   const user = request.user;
+  console.log(user);
   const books = await Book
     .find({ user: user.id })
     .populate('user', { email: 1, name: 1 });
@@ -53,7 +54,13 @@ const update = async (request, response) => {
 
 const remove = async (request, response) => {
   const id = request.params.id;
-  await Book.findByIdAndRemove(id);
+  const bookToDelete = await Book.findByIdAndRemove(id);
+  const user = await User.findById(bookToDelete.user.toString());
+  user.books = user.books.filter((book) => (
+    bookToDelete._id.toString() !== book.toString()
+  ));
+  await user.save();
+
   response.status(204).end();
 };
 

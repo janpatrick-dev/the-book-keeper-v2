@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { token } from './token';
 
-const baseUrl = 'http://localhost:4000/api/books'
+const baseUrl = '/api/books'
 
 const getUserBooks = async () => {
   const response = await axios.get(baseUrl, {

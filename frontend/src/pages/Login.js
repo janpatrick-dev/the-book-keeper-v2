@@ -2,7 +2,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import useField from '../hooks/useField';
 import loginService from '../services/login';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../redux/reducers/userReducer';
+import { loginUser, setUser } from '../redux/reducers/userReducer';
 import { setAlert } from '../redux/reducers/alertReducer';
 import { useState } from 'react';
 import FormRowInputText from '../components/form/FormRowInputText';
@@ -21,12 +21,8 @@ const Login = () => {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const user = await loginService.login({ 
-        email: email.value.toLowerCase(), 
-        password: password.value 
-      });
+      await dispatch(loginUser({ email, password }));
       setIsLoading(false);
-      dispatch(setUser(user));
       navigate('/books');
     } catch (error) {
       let message = error.response.data.error;

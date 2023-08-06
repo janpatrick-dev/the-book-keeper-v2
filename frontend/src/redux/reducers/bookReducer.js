@@ -48,7 +48,6 @@ const clearAlert = () => {
 
 export const initializeBooks = () => {
   return async (dispatch) => {
-    dispatch(clearAlert());
     try {
       const books = await bookService.getUserBooks();
       dispatch(setBooks(books));

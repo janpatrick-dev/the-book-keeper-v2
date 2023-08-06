@@ -5,6 +5,10 @@ const loginRouter = require('express').Router();
 const config = require('../utils/config');
 const User = require('../models/User');
 
+loginRouter.get('/', async (request, response) => {
+  
+});
+
 loginRouter.post('/', async (request, response) => {
   const { email, password } = request.body;
 

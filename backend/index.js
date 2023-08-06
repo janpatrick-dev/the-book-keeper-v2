@@ -3,6 +3,7 @@ require('dotenv').config();
 const config = require('./utils/config');
 const mongoose = require('mongoose');
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const app = express();
 const middleware = require('./utils/middleware');
@@ -20,13 +21,19 @@ mongoose.connect(config.MONGODB_URL)
   });
 
 app.use(cors());
+app.use(express.static('build'));
 app.use(express.json());
+
 app.use(middleware.tokenExtractor);
 app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/books', booksRouter);
 
 app.use(middleware.errorHandler);
+
+app.get('*', (request, response) => {
+  response.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 app.listen(config.PORT, () => {
   console.log('listening on port', config.PORT);
