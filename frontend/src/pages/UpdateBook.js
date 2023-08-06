@@ -45,8 +45,7 @@ const UpdateBook = () => {
       author: author.value,
       imgUrl: imgUrl.value,
       yearPublished: year.value,
-      hasRead: hasRead.value,
-      createdAt: book.createdAt // TODO: Remove when database is implemented
+      hasRead: hasRead.value
     }));
     setLoading(false);
     navigate('/books');
