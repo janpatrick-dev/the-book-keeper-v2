@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 import FormRowInputText from "../components/form/FormRowInputText";
@@ -10,6 +10,7 @@ import { updateBook } from "../redux/reducers/bookReducer";
 import useCheckbox from "../hooks/useCheckbox";
 import tokenService from "../services/token";
 import { setAlert } from "../redux/reducers/alertReducer";
+import HashLoader from "react-spinners/HashLoader";
 
 const UpdateBook = () => {
   const { id } = useParams();
@@ -17,6 +18,7 @@ const UpdateBook = () => {
   const dispatch = useDispatch();
   const book = useSelector(state => state.books.find((b) => b.id === id));
   const user = useSelector(state => state.user);
+  const [loading, setLoading] = useState(null);
 
   const title = useField('text', book && book.title);
   const author = useField('text', book && book.author);
@@ -36,7 +38,8 @@ const UpdateBook = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(updateBook({
+    setLoading({ message: '', loading: true });
+    await dispatch(updateBook({
       id: book.id,
       title: title.value,
       author: author.value,
@@ -45,20 +48,8 @@ const UpdateBook = () => {
       hasRead: hasRead.value,
       createdAt: book.createdAt // TODO: Remove when database is implemented
     }));
+    setLoading(null);
     navigate('/books');
-  }
-
-  const resetForm = () => {
-    const emptyEvent = { target: { value: '' }};
-    title.onChange(emptyEvent);
-    author.onChange(emptyEvent);
-    imgUrl.onChange(emptyEvent);
-
-    emptyEvent.target.value = 2023;
-    year.onChange(emptyEvent);
-
-    emptyEvent.target.value = false;
-    hasRead.onChange(emptyEvent);
   }
 
   if (!user) {
@@ -99,9 +90,10 @@ const UpdateBook = () => {
           name='hasRead'
         />
         <FormButton 
-          disabled={false} 
+          disabled={loading} 
           label='Update Book'
           className='btn-update-book' />
+        {loading && <HashLoader style={{ textAlign: 'center' }} />}
       </form>
     </div>
   );

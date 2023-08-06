@@ -12,7 +12,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
-  const email = useField('text');
+  const email = useField('email');
   const password = useField('password');
 
   const [isLoading, setIsLoading] = useState(null);

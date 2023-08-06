@@ -5,9 +5,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { updateBook, deleteBook } from '../../redux/reducers/bookReducer';
+import BookLoading from './BookLoading';
+import { useState } from 'react';
 
 const Book = ({ book }) => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(null);
 
   const { 
     id, 
@@ -19,12 +22,16 @@ const Book = ({ book }) => {
     createdAt 
   } = book;
 
-  const handleUpdateReadStatus = (e) => {
-    dispatch(updateBook({ ...book, hasRead: !book.hasRead }));
+  const handleUpdateReadStatus = async (e) => {
+    setLoading({ message: 'Updating book...', isLoading: true });
+    await dispatch(updateBook({ ...book, hasRead: !book.hasRead }));
+    setLoading(null);
   }
 
-  const handleDelete = (e) => {
-    dispatch(deleteBook(id));
+  const handleDelete = async (e) => {
+    setLoading({ message: 'Deleting book...', isLoading: true });
+    await dispatch(deleteBook(id));
+    setLoading(null);
   }
 
   return (
@@ -62,6 +69,7 @@ const Book = ({ book }) => {
           />
         </div>
       </div>
+      {loading && <BookLoading message={loading.message} />}
     </div>
   )
 }

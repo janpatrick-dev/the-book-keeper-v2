@@ -30,8 +30,9 @@ export const { setBooks, appendBook, reviseBook, removeBook } = bookSlice.action
 
 const setError = (error) => {
   return (dispatch) => {
+    console.log(error);
     let message = error.message;
-    if (error.response.status === 401) {
+    if (error.response && error.response.status === 401) {
       dispatch({ type: 'USER_LOGOUT' });
       message = 'Session Expired. Please log in again.';
     }
@@ -52,6 +53,7 @@ export const initializeBooks = () => {
       const books = await bookService.getUserBooks();
       dispatch(setBooks(books));
     } catch (err) {
+      console.log(err);
       dispatch(setError(err));
     }
   };
