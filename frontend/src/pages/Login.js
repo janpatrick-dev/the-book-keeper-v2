@@ -7,6 +7,7 @@ import { setAlert } from '../redux/reducers/alertReducer';
 import { useState } from 'react';
 import FormRowInputText from '../components/form/FormRowInputText';
 import FormButton from '../components/form/FormButton';
+import LoadingProgress from '../components/LoadingProgress';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -15,21 +16,21 @@ const Login = () => {
   const email = useField('email');
   const password = useField('password');
 
-  const [isLoading, setIsLoading] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setIsLoading(true);
+      setLoading(true);
       await dispatch(loginUser({ email, password }));
-      setIsLoading(false);
+      setLoading(false);
       navigate('/books');
     } catch (error) {
       let message = error.response.data.error;
       if (!message) {
         message = error.message;
       }
-      setIsLoading(false);
+      setLoading(false);
       dispatch(setAlert(message, false));
     }
   }
@@ -58,10 +59,11 @@ const Login = () => {
           required={true}
         />
         <FormButton
-          disabled={isLoading}
+          disabled={loading}
           label='Log in'
           className='btn-login'
         />
+        {loading && <LoadingProgress />}
       </form>
     </div>
   );

@@ -7,6 +7,7 @@ import { initializeBooks } from "../redux/reducers/bookReducer";
 import { setFilter } from "../redux/reducers/filterReducer";
 import booksSelector from "../redux/selectors/booksSelector";
 import tokenService from "../services/token";
+import UIHelper from "../helpers/UIHelper";
 
 const Books = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,8 @@ const Books = () => {
   };
 
   const handleFloatingAddBookClick = () => {
-
+    UIHelper.showAddBookPopup();
+    UIHelper.hideDrawer();
   }
 
   useEffect(() => {

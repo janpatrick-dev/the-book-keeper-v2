@@ -5,8 +5,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { updateBook, deleteBook } from '../../redux/reducers/bookReducer';
-import BookLoading from './BookLoading';
 import { useState } from 'react';
+import LoadingProgress from '../LoadingProgress';
 
 const Book = ({ book }) => {
   const dispatch = useDispatch();
@@ -69,7 +69,11 @@ const Book = ({ book }) => {
           />
         </div>
       </div>
-      {loading && <BookLoading message={loading.message} />}
+      {loading && 
+        <div className='books__item-loading'>
+          <LoadingProgress message={loading.message} />
+        </div>
+      }
     </div>
   )
 }

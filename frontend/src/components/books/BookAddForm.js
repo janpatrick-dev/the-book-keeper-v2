@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import FormRowInputText from "../form/FormRowInputText";
 import FormButton from "../form/FormButton";
 import FormRowCheckbox from "../form/FormRowCheckbox";
@@ -7,13 +7,15 @@ import useField from '../../hooks/useField';
 
 import { useDispatch } from "react-redux";
 import { createBook } from "../../redux/reducers/bookReducer";
+import LoadingProgress from "../LoadingProgress";
 
-const BookAddForm = () => {
+const BookAddForm = ({ onSubmit=null }) => {
   const title = useField('text');
   const author = useField('text');
   const imgUrl = useField('text');
   const year = useField('number', 2023);
   const hasRead = useField('checkbox', false);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -23,7 +25,8 @@ const BookAddForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(createBook({
+    setLoading(true);
+    await dispatch(createBook({
       title: title.value, 
       author: author.value, 
       imgUrl: imgUrl.value, 
@@ -31,7 +34,9 @@ const BookAddForm = () => {
       yearPublished: year.value,
       createdAt: new Date() // TODO: remove after creating database
     }));
+    setLoading(false);
     resetForm();
+    if (onSubmit) { onSubmit(); }
   }
 
   const resetForm = () => {
@@ -80,12 +85,11 @@ const BookAddForm = () => {
           name='hasRead'
         />
         <FormButton 
-          disabled={false} 
+          disabled={loading} 
           label='Add Book'
           className='btn-add-book'  />
-        {/* <FormError error={err} />
-        <LoadingProgress isLoading={addLoading} /> */}
       </form>
+      {loading && <LoadingProgress />}
     </div>
   )
 }

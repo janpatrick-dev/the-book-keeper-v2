@@ -11,6 +11,19 @@
   text-align: center;
 }
 
+.flex-center-r {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-center-c {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (max-width: $media-query-medium) {
   .hide {
     display: none !important;
