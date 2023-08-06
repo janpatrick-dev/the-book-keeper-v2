@@ -4,7 +4,7 @@ The Book Keeper is a user-friendly book organizer app that allows you to add, up
 
 https://the-book-keeper.fly.dev/
 
-![The Book Keeper GIF](https://imgur.com/a/Hh5wx8R)
+![The Book Keeper GIF](https://i.imgur.com/LsLrQlT.gif)
 
 ## Technologies Used
 - HTML5
