@@ -7,12 +7,16 @@ import Footer from "./components/partials/Footer";
 import Books from "./pages/Books";
 import UpdateBook from "./pages/UpdateBook";
 import Alert from "./components/Alert";
+import Drawer from "./components/partials/Drawer";
+import AddBookPopup from "./components/partials/AddBookPopup";
 
 const App = () => {
   return (
     <div className='App'>
       <div>
         <Navbar />
+        <Drawer />
+        <AddBookPopup />
         <main id="main">
           <Alert />
           <Routes>

@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import UIHelper from '../helpers/UIHelper';
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -7,6 +8,10 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch({ type: 'USER_LOGOUT' });
+  }
+
+  const handleHamburgerClick = () => {
+    UIHelper.showDrawer();
   }
 
   return (
@@ -34,6 +39,11 @@ const Navbar = () => {
           </div>
         )}
       </ul>
+      <div className="nav__hamburger" onClick={handleHamburgerClick}>
+        <div className="nav__line"></div>
+        <div className="nav__line"></div>
+        <div className="nav__line"></div>
+      </div>
     </nav>
   )
 }

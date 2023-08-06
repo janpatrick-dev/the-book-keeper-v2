@@ -32,6 +32,10 @@
     gap: 1rem;
   }
 
+  &__add {
+    position: relative
+  }
+
   &__add,
   &__update {
     width: 100%;

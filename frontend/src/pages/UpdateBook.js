@@ -18,7 +18,7 @@ const UpdateBook = () => {
   const dispatch = useDispatch();
   const book = useSelector(state => state.books.find((b) => b.id === id));
   const user = useSelector(state => state.user);
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const title = useField('text', book && book.title);
   const author = useField('text', book && book.author);
@@ -38,7 +38,7 @@ const UpdateBook = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading({ message: '', loading: true });
+    setLoading(true);
     await dispatch(updateBook({
       id: book.id,
       title: title.value,
@@ -48,7 +48,7 @@ const UpdateBook = () => {
       hasRead: hasRead.value,
       createdAt: book.createdAt // TODO: Remove when database is implemented
     }));
-    setLoading(null);
+    setLoading(false);
     navigate('/books');
   }
 

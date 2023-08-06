@@ -6,6 +6,7 @@ import { createUser } from '../redux/reducers/userReducer';
 import FormRowInputText from '../components/form/FormRowInputText';
 import FormButton from '../components/form/FormButton';
 import { setAlert } from '../redux/reducers/alertReducer';
+import LoadingProgress from '../components/LoadingProgress';
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const Signup = () => {
 
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
-  const [isLoading, setIsLoading] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     dispatch(setAlert(null));
@@ -25,16 +26,16 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setIsLoading(true);
+      setLoading(true);
       await dispatch(createUser({
         name: name.value,
         email: email.value.toLowerCase(),
         password: password.value
       }));
-      setIsLoading(false);
+      setLoading(false);
     } catch (err) {
       const { email, password } = err.response.data.error;
-      setIsLoading(false);
+      setLoading(false);
       setEmailError(email);
       setPasswordError(password);
     }
@@ -73,13 +74,13 @@ const Signup = () => {
           error={passwordError}
         />
         <FormButton
-          disabled={isLoading}
+          disabled={loading}
           label='Sign up'
           className='btn-signup'
         />
+        {loading && <LoadingProgress />}
         {/* <FormButton disabled={isLoading} label='Sign up' className='btn-signup' /> */}
-        {/* <FormError error={error} />
-        <LoadingProgress isLoading={isLoading} /> */}
+        {/* <FormError error={error} />*/}
       </form>
     </div>
   );
