@@ -1,0 +1,22 @@
+.hide {
+  display: none;
+}
+
+.hide-side {
+  transform: translateX(100%);
+}
+
+.center {
+  margin: 0 auto;
+  text-align: center;
+}
+
+@media (max-width: $media-query-medium) {
+  .hide {
+    display: none !important;
+  }
+  
+  .divider {
+    display: none;
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "books": [
+    {
+      "id": 2,
+      "hasRead": false,
+      "imgUrl": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1655988385i/40121378.jpg",
+      "title": "Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones",
+      "author": "James Clear",
+      "yearPublished": 2018,
+      "createdAt": "2023-05-19T17:02:42.218+00:00"
+    },
+    {
+      "id": 3,
+      "title": "The Subtle Art of Not Giving a F*ck",
+      "author": "John Doe",
+      "imgUrl": "https://kbimages1-a.akamaihd.net/f68de379-e763-441c-8159-a949ea575237/1200/1200/False/the-subtle-art-of-not-giving-a-f-ck.jpg",
+      "yearPublished": 1999,
+      "hasRead": false,
+      "createdAt": "2023-05-17T03:49:09.576+00:00"
+    },
+    {
+      "id": 4,
+      "title": "How to Win Friends and Influence People",
+      "author": "Dale Carnegie",
+      "imgUrl": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1442726934i/4865.jpg",
+      "yearPublished": 1936,
+      "hasRead": false,
+      "createdAt": "2023-05-19T17:29:03.679+00:00"
+    },
+    {
+      "id": 5,
+      "title": "The Power of Habits",
+      "author": "Charles Duhigg",
+      "imgUrl": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1545854312i/12609433.jpg",
+      "yearPublished": 2012,
+      "hasRead": false,
+      "createdAt": "2023-05-25T15:51:17.312+00:00"
+    }
+  ]
+}

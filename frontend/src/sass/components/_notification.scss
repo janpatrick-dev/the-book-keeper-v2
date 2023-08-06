@@ -1,0 +1,21 @@
+.alert {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: stretch;
+  padding: 1rem 3rem 1rem 1rem;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid #979696;
+
+  &--success {
+    background-color: rgb(164, 211, 164);
+    // border-left: 5px solid rgb(4, 204, 4);
+  }
+
+  &--error {
+    background-color: rgb(211, 164, 164);
+    // border-left: 5px solid rgb(204, 4, 4);
+  }
+}
