@@ -40,3 +40,9 @@
     }
   }
 }
+
+@media (max-width: $media-query-medium) {
+  .footer {
+    margin-bottom: 7.5rem;
+  }
+}
